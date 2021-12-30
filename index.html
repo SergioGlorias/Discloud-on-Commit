@@ -36,11 +36,15 @@
                             <label for="file" class="me-2">File:</label>
                             <input type="file" id="file"/>
                         </div>
+                        <div class="my-2">
+                            <label for="restart" class="me-2">Restart:</label>
+                            <input type="checkbox" id="restart" v-model="restart" />
+                        </div>
 
                         <div class="mt-4">
                             <label for="submit" class="me-2">&nbsp;</label>
                             <button type="submit" id="submit" class="btn btn-primary" v-on:click="commit">Submit the Commit</button>
-                            <span>{{ status }}</span>
+                            <span class="ps-5"><b>{{ status }}</b></span>
                         </div>
                     </form>
                 </div>

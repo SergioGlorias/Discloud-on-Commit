@@ -4,7 +4,8 @@ Vue.createApp({
             title: "Commit on Discloud",
             botID: "",
             apiToken: "",
-            status: ""
+            status: "",
+            restart: false,
         }
     },
     methods: {
@@ -31,7 +32,14 @@ Vue.createApp({
 
             this.status = "Committing...";
 
-            axios.post(`https://discloud.app/status/bot/${this.botID}/commit`, formData, config)
+            let url
+            if (this.restart) {
+                url = `https://discloud.app/status/bot/${this.botID}/commit?restart=true`;
+            } else {
+                url = `https://discloud.app/status/bot/${this.botID}/commit`;
+            }
+
+            axios.post(url, formData, config)
                 .then(response => {
                     this.status = response.data.message;
                     alert(response.data.message);
