@@ -6,15 +6,18 @@ Vue.createApp({
             apiToken: "",
             status: "",
             restart: false,
+            buttonActive: false,
         }
     },
     methods: {
         commit(e) {
+            this.buttonActive = true;
             e.preventDefault();
 
             const file = document.getElementById("file").files[0];
 
             if (file === undefined || this.botID === "" || this.apiToken === "") {
+                this.buttonActive = false;
                 this.status = "Please fill all fields";
                 alert("Please fill in all fields");
                 return;
@@ -41,10 +44,12 @@ Vue.createApp({
 
             axios.post(url, formData, config)
                 .then(response => {
+                    this.buttonActive = false;
                     this.status = response.data.message;
                     alert(response.data.message);
                 })
                 .catch(error => {
+                    this.buttonActive = false;
                     this.status = error.response.data.message;
                     alert(error.response.data.message);
                 });

@@ -43,7 +43,7 @@
 
                         <div class="mt-4">
                             <label for="submit" class="me-2">&nbsp;</label>
-                            <button type="submit" id="submit" class="btn btn-primary" v-on:click="commit">Submit the Commit</button>
+                            <button type="submit" id="submit" class="btn btn-primary" v-on:click="commit" :disabled="buttonActive" >Submit the Commit</button>
                             <span class="ps-5"><b>{{ status }}</b></span>
                         </div>
                     </form>
