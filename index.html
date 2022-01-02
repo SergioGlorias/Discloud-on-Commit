@@ -22,29 +22,32 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
-                    <form id="app-form">
+                <div class="col-12 fs-5">
+                    <form id="app-form" class="text-center">
                         <div class="my-2">
-                            <label for="botID" class="me-2">Bot ID:</label>
-                            <input type="text" id="botID" v-model="botID" />
+                            <label for="botID" class="me-2 form-label"><b>Bot ID:</b></label> <br>
+                            <input type="text" id="botID" class="form-control form-control-sm text-center"
+                                placeholder="ID" v-model="botID" />
                         </div>
-                        <div class="my-2">
-                            <label for="apiToken" class="me-2">API Token:</label>
-                            <input type="password" id="apiToken" v-model="apiToken" />
+                        <div class="my-3">
+                            <label for="apiToken" class="me-2 form-label"><b>API Token:</b></label> <br>
+                            <input type="password" id="apiToken" class="form-control form-control-sm text-center"
+                                placeholder="Token" v-model="apiToken" />
                         </div>
-                        <div class="my-2">
-                            <label for="file" class="me-2">File:</label>
-                            <input type="file" id="file"/>
+                        <div class="my-3">
+                            <label for="file" class="me-2 form-label"><b>File:</b></label> <br>
+                            <input type="file" class="form-control form-control-sm" id="file" />
                         </div>
-                        <div class="my-2">
-                            <label for="restart" class="me-2">Restart:</label>
-                            <input type="checkbox" id="restart" v-model="restart" />
+                        <div class="my-3">
+                            <label for="restart" class="me-2 form-check-label"><b>Restart:</b></label>
+                            <input type="checkbox" id="restart" class="form-check-input" role="switch"
+                                v-model="restart" />
                         </div>
 
                         <div class="mt-4">
-                            <label for="submit" class="me-2">&nbsp;</label>
-                            <button type="submit" id="submit" class="btn btn-primary" v-on:click="commit" :disabled="buttonActive" >Submit the Commit</button>
-                            <span class="ps-5"><b>{{ status }}</b></span>
+                            <label for="submit" class="me-2">{{ status }}</label> <br>
+                            <button type="submit" id="submit" class="btn btn-primary" v-on:click="commit"
+                                :disabled="buttonActive">Submit the Commit</button>
                         </div>
                     </form>
                 </div>
