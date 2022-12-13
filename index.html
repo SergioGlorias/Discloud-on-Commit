@@ -1,60 +1,149 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Commit discloud</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Discloud on API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script
+      src="https://unpkg.com/vue@next/dist/vue.global.prod.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center mt-3">
-                    <h1>{{ title }}</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 fs-5">
-                    <form id="app-form" class="text-center">
-                        <div class="my-2">
-                            <label for="botID" class="me-2 form-label"><b>Bot ID:</b></label> <br>
-                            <input type="text" id="botID" class="form-control form-control-sm text-center"
-                                placeholder="ID" v-model="botID" />
-                        </div>
-                        <div class="my-3">
-                            <label for="apiToken" class="me-2 form-label"><b>API Token:</b></label> <br>
-                            <input type="password" id="apiToken" class="form-control form-control-sm text-center"
-                                placeholder="Token" v-model="apiToken" />
-                        </div>
-                        <div class="my-3">
-                            <label for="file" class="me-2 form-label"><b>File:</b></label> <br>
-                            <input type="file" class="form-control form-control-sm" id="file" />
-                        </div>
-                        <div class="my-3">
-                            <label for="restart" class="me-2 form-check-label"><b>Restart:</b></label>
-                            <input type="checkbox" id="restart" class="form-check-input" role="switch"
-                                v-model="restart" />
-                        </div>
-
-                        <div class="mt-4">
-                            <label for="submit" class="me-2">{{ status }}</label> <br>
-                            <button type="submit" id="submit" class="btn btn-primary" v-on:click="commit"
-                                :disabled="buttonActive">Submit the Commit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mt-3">
+            <h1>
+              {{ title }}
+              <a
+                href="https://github.com/SergioGlorias/Discloud-on-Commit"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  alt="GitHub Repo stars"
+                  src="https://img.shields.io/github/stars/sergioglorias/Discloud-on-Commit?label=GITHUB&style=for-the-badge"
+              /></a>
+            </h1>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-12 fs-5">
+            <form id="app-form" class="text-center">
+              <div class="my-3">
+                <label for="apiToken" class="me-2 form-label"
+                  ><b>API Token:</b></label
+                >
+                <br />
+                <input
+                  type="password"
+                  id="apiToken"
+                  class="form-control form-control-sm text-center"
+                  placeholder="Token"
+                  v-model="apiToken"
+                />
+              </div>
+              <hr class="my-5" />
+              <label for="apiToken" class="me-2 form-label"
+                ><b>Upload & Commit</b></label
+              >
+              <br />
+              <div class="my-3">
+                <label for="file" class="me-2 form-label"><b>File:</b></label>
+                <br />
+                <input
+                  type="file"
+                  class="form-control form-control-sm"
+                  id="file"
+                />
+              </div>
+              <div class="mt-4">
+                <label for="submit" class="me-2">{{ status }}</label> <br />
+                <button
+                  type="submit"
+                  id="submit"
+                  class="btn btn-primary me-2"
+                  v-on:click="upload"
+                  :disabled="buttonActive"
+                >
+                  Submit the Upload
+                </button>
+                <button
+                  type="submit"
+                  id="submit"
+                  class="btn btn-success me-2"
+                  v-on:click="commit"
+                  :disabled="buttonActive"
+                >
+                  Submit the Commit
+                </button>
+              </div>
+              <hr class="my-5" />
+              <label for="apiToken" class="me-2 form-label"
+                ><b>Control</b></label
+              >
+              <div class="mt-4">
+                <label for="submit" class="me-2">{{ status2 }}</label> <br />
+                <button
+                  type="submit"
+                  id="submit"
+                  class="btn btn-success me-2"
+                  v-on:click="start"
+                  :disabled="buttonActive"
+                >
+                  Start
+                </button>
+                <button
+                  type="submit"
+                  id="submit"
+                  class="btn btn-primary me-2"
+                  v-on:click="restart"
+                  :disabled="buttonActive"
+                >
+                  Restart
+                </button>
+                <button
+                  type="submit"
+                  id="submit"
+                  class="btn btn-danger me-2"
+                  v-on:click="stop"
+                  :disabled="buttonActive"
+                >
+                  Stop
+                </button>
+                <hr class="my-5" />
+                <label for="apiToken" class="me-2 form-label"
+                  ><b>DANGER</b></label
+                >
+                <div class="mt-4 mb-5">
+                  <label for="submit" class="me-2">{{ status3 }}</label> <br />
+                  <button
+                    type="submit"
+                    id="submit"
+                    class="btn btn-danger me-2"
+                    v-on:click="remove"
+                    :disabled="buttonActive"
+                  >
+                    <b>REMOVE APP</b>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src='main.js'></script>
-</body>
-
+    <script src="main.js"></script>
+  </body>
 </html>
